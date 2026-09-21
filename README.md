@@ -9,4 +9,6 @@ LazyVim, set up to answer to JetBrains muscle memory.
 - `lua/plugins/ide.lua` — multiple carets, line moving, signature help.
 - `lua/plugins/lsp.lua` — how far a language server is allowed to look for a
   project root.
+- `lua/plugins/verilog.lua` — Verilog and SystemVerilog, which LazyVim has no
+  extra for.
 - `lua/plugins/ui.lua` — colours, transparency, and where the tool windows dock.

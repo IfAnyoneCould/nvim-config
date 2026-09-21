@@ -22,3 +22,8 @@ vim.opt.confirm = true
 -- pyright; basedpyright is the fork with inlay hints and stricter inference,
 -- which is closer to what PyCharm shows you.
 vim.g.lazyvim_python_lsp = "basedpyright"
+
+-- A .v file is ambiguous - Verilog, Coq or V - and Neovim guesses by reading
+-- the first 500 lines, which means an empty new file opens as V and gets no
+-- server. Nothing here is ever Coq or V.
+vim.g.filetype_v = "verilog"
