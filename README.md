@@ -1,6 +1,6 @@
 # nvim
 
-LazyVim, set up to answer to JetBrains muscle memory.
+LazyVim with some JetBrains keybinds.
 
 - `lua/config/keymaps.lua` — the JetBrains keymap layer, and what it deliberately
   leaves to vim. Most of it needs WezTerm's kitty keyboard protocol, which
