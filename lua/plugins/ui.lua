@@ -19,8 +19,8 @@ return {
           -- Brighten low-contrast inline text so it reads over the image.
           -- The WezTerm background is now dimmed to brightness 0.3 rather than
           -- 2.0, so these no longer have to fight a washed-out photo.
-          vim.api.nvim_set_hl(0, "Comment", { fg = "#b8b088", italic = true })
-          vim.api.nvim_set_hl(0, "LineNr", { fg = "#928374" })
+          vim.api.nvim_set_hl(0, "Comment", { fg = "#949494", italic = true })
+          vim.api.nvim_set_hl(0, "LineNr", { fg = "#535353" })
         end,
       })
       vim.cmd("TransparentEnable")
@@ -30,7 +30,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox-baby",
+      colorscheme = "ashen",
     },
   },
   {
