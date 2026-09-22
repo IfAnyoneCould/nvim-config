@@ -63,7 +63,10 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = { enabled = true },
-      codelens = { enabled = true },
+      -- Off. Lenses refresh on CursorHold, so at updatetime 200ms idling in
+      -- a rust file recomputed runnables five times a second. <leader>dr
+      -- still works.
+      codelens = { enabled = false },
     },
   },
 }
