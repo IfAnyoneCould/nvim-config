@@ -12,3 +12,4 @@ LazyVim, set up to answer to JetBrains muscle memory.
 - `lua/plugins/verilog.lua` — Verilog and SystemVerilog, which LazyVim has no
   extra for.
 - `lua/plugins/ui.lua` — colours, transparency, and where the tool windows dock.
+- lua/plugins/rustaceanvim.lua - rustaceanvim plugin for rust development
