@@ -50,6 +50,7 @@ end, { expr = true, desc = "Rename" })
 map({ "n", "x" }, "<C-A-l>", function() LazyVim.format({ force = true }) end, { desc = "Reformat Code" })
 map("n", "<F2>", function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = "Next Error" })
 map("n", "<S-F2>", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Previous Error" })
+map("n", "<leader>cL", "<cmd>RustAnalyzer restart<cr>", { desc = "Restart rust-analyzer" })
 
 -- Ctrl+/ comment. <C-_> is the same keypress as seen by a terminal that is not
 -- speaking the kitty protocol, so both are mapped and this one keeps working
