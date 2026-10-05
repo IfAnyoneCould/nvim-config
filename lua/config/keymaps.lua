@@ -91,3 +91,11 @@ map("x", "<C-A-m>", function() require("refactoring").refactor("Extract Function
 map("x", "<C-A-v>", function() require("refactoring").refactor("Extract Variable") end, { desc = "Extract Variable" })
 map("n", "<C-A-n>", function() require("refactoring").refactor("Inline Variable") end, { desc = "Inline Variable" })
 map({ "n", "x" }, "<C-A-S-t>", function() require("refactoring").select_refactor() end, { desc = "Refactor This" })
+
+-- ─── :tabclose ───────────────────────────────────────────────────────────────
+-- The bar along the top is buffers, not tab pages, so with only one tab page
+-- :tabclose has nothing to close. Then it closes the buffer you're on instead;
+-- with real tab pages open it is the normal command.
+for _, cmd in ipairs({ "tabclose", "tabc" }) do
+  vim.cmd(("cnoreabbrev <expr> %s (getcmdtype() ==# ':' && getcmdline() ==# '%s' && tabpagenr('$') == 1) ? 'lua Snacks.bufdelete()' : '%s'"):format(cmd, cmd, cmd))
+end

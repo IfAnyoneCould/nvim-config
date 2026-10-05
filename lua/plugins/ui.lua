@@ -27,7 +27,23 @@ return {
         end,
       })
       vim.cmd("TransparentEnable")
+      -- the tab bar too, its boxes were the colorscheme's grey over the image.
+      -- remembered, so it gets cleared again on every ColorScheme and FileType
+      require("transparent").clear_prefix("BufferLine")
     end,
+  },
+  -- no boxes or separators, the current buffer gets an underline instead
+  {
+    "akinsho/bufferline.nvim",
+    optional = true,
+    opts = {
+      options = {
+        separator_style = { "", "" },
+        indicator = { style = "underline" },
+        show_buffer_close_icons = false,
+        show_close_icon = false,
+      },
+    },
   },
   { "luisiacc/gruvbox-baby" },
   {
