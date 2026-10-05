@@ -27,3 +27,14 @@ vim.g.lazyvim_python_lsp = "basedpyright"
 -- the first 500 lines, which means an empty new file opens as V and gets no
 -- server. Nothing here is ever Coq or V.
 vim.g.filetype_v = "verilog"
+
+-- Started from msys2's zsh, Neovim takes $SHELL (zsh.exe) as its shell but
+-- keeps cmd.exe's flags, so every :! and string job runs `zsh /s /c ...` and
+-- zsh goes looking for a file called /s. Give a posix shell posix flags.
+if vim.fn.has("win32") == 1 and vim.o.shell:match("[/\\]%a*sh%.exe$") then
+  vim.o.shellcmdflag = "-c"
+  vim.o.shellquote = ""
+  vim.o.shellxquote = ""
+  vim.o.shellpipe = "2>&1 | tee"
+  vim.o.shellredir = ">%s 2>&1"
+end
