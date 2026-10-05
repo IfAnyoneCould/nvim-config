@@ -1,5 +1,12 @@
 -- The IDE behaviours that are not just a LazyVim extra switched on.
 return {
+  -- Git bars on files git doesn't track yet too, the whole file shows as added
+  -- until it's committed. Like JetBrains colouring a new file green.
+  {
+    "lewis6991/gitsigns.nvim",
+    optional = true,
+    opts = { attach_to_untracked = true },
+  },
   -- Multiple carets. JetBrains: Alt+J takes the next occurrence of the word
   -- under the cursor, Ctrl+Alt+Shift+J takes all of them, and Escape drops
   -- back to one caret.
