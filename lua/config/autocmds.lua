@@ -25,3 +25,27 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     end, 500)
   end,
 })
+
+-- Every keyword and the accents go bold so they pop off the background, on
+-- every theme. ColorScheme since wzt switches running nvims with :colorscheme,
+-- and once now since this loads after the startup one
+local accents = {
+  Keyword = true, Statement = true, Conditional = true, Repeat = true,
+  Exception = true, Label = true, Include = true, PreProc = true,
+  Type = true, Constant = true, CursorLineNr = true,
+  ["@include"] = true, ["@function.macro"] = true, ["@constant"] = true,
+}
+local function bold()
+  for name in pairs(vim.api.nvim_get_hl(0, {})) do
+    if accents[name] or name:match("^@keyword") or name:match("^@lsp%.type%.keyword") then
+      local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
+      hl.bold = true
+      vim.api.nvim_set_hl(0, name, hl)
+    end
+  end
+end
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = vim.api.nvim_create_augroup("bold_keywords", { clear = true }),
+  callback = bold,
+})
+bold()
