@@ -13,7 +13,7 @@ return {
       smear.setup(opts)
       -- Normal has no background with transparent.nvim, so it blends the
       -- smear's edges against this. each wzt theme's terminal background
-      local bgs = { ashen = "#121212", nord = "#2E3440", everforest = "#2D353B", ["rose-pine"] = "#1A1B28" }
+      local bgs = { ashen = "#121212", nord = "#2E3440", everforest = "#2D353B", ["rose-pine"] = "#1A1B28", gilded = "#0F1012" }
       local function fallback()
         smear.transparent_bg_fallback_color = bgs[vim.g.colors_name] or "#1d1d1d"
       end
