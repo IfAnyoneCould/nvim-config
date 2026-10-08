@@ -45,6 +45,26 @@ return {
       },
     },
   },
+  -- same for the statusline. wezterm lets the image through cell backgrounds
+  -- but not the separator glyphs, so the sections were tinted next to their
+  -- arrows. no backgrounds, the mode keeps its colour as the text instead
+  {
+    "nvim-lualine/lualine.nvim",
+    optional = true,
+    opts = function(_, opts)
+      opts.options.section_separators = ""
+      opts.options.theme = function()
+        local theme = require("lualine.utils.loader").load_theme("auto")
+        for _, mode in pairs(theme) do
+          for name, section in pairs(mode) do
+            if name == "a" or name == "z" then section.fg = section.bg end
+            section.bg = "NONE"
+          end
+        end
+        return theme
+      end
+    end,
+  },
   { "luisiacc/gruvbox-baby" },
   {
     "LazyVim/LazyVim",

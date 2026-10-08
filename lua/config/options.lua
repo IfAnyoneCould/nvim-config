@@ -23,6 +23,10 @@ vim.opt.confirm = true
 -- which is closer to what PyCharm shows you.
 vim.g.lazyvim_python_lsp = "basedpyright"
 
+-- Opening a .py file went looking for a python with pynvim, ~450ms every
+-- time. Nothing here is a python remote plugin
+vim.g.loaded_python3_provider = 0
+
 -- A .v file is ambiguous - Verilog, Coq or V - and Neovim guesses by reading
 -- the first 500 lines, which means an empty new file opens as V and gets no
 -- server. Nothing here is ever Coq or V.
