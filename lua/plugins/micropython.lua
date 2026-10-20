@@ -12,6 +12,15 @@ return {
       local popen = io.popen
       io.popen = function(cmd, ...) return popen((cmd:gsub("2>/dev/null", "2>nul")), ...) end
     end,
+    -- mpinit's pyrightconfig lets cpython's typeshed shadow the micropython
+    -- stdlib stubs (time.ticks_us errors), point it at the venv instead
+    config = function(_, opts)
+      require("micropython_nvim").setup(opts)
+      require("micropython_nvim.project").TEMPLATES.pyright_config = vim.json.encode({
+        venvPath = ".", venv = ".venv", typeshedPath = ".venv/Lib/site-packages",
+        typeCheckingMode = "standard", reportMissingModuleSource = false,
+      })
+    end,
     cmd = {
       "MPRun", "MPRunMain", "MPUpload", "MPUploadAll", "MPRepl", "MPSync", "MPReset", "MPHardReset",
       "MPListFiles", "MPEraseOne", "MPEraseAll", "MPInit", "MPInstall", "MPSetPort", "MPSetBaud",
