@@ -42,3 +42,27 @@ if vim.fn.has("win32") == 1 and vim.o.shell:match("[/\\]%a*sh%.exe$") then
   vim.o.shellpipe = "2>&1 | tee"
   vim.o.shellredir = ">%s 2>&1"
 end
+
+-- windows power mode on best power efficiency (or energy saver) throttles the
+-- cpu enough that the animations lag. checked once at startup, they stay off
+-- until a restart
+do
+  local ffi = require("ffi")
+  local saving = false
+  if vim.fn.has("win32") == 1 then
+    pcall(ffi.cdef, [[
+      typedef struct { uint32_t a; uint16_t b, c; uint8_t d[8]; } GUID;
+      uint32_t PowerGetEffectiveOverlayScheme(GUID *);
+      typedef struct { uint8_t ac, flag, pct, saver; uint32_t life, full; } SYSTEM_POWER_STATUS;
+      int GetSystemPowerStatus(SYSTEM_POWER_STATUS *);
+    ]])
+    local ok, powrprof = pcall(ffi.load, "powrprof")
+    local g = ffi.new("GUID")
+    if ok and powrprof.PowerGetEffectiveOverlayScheme(g) == 0 then saving = g.a == 0x961cc777 end
+    local s = ffi.new("SYSTEM_POWER_STATUS")
+    if ffi.C.GetSystemPowerStatus(s) ~= 0 and s.saver == 1 then saving = true end
+  end
+  vim.g.power_saving = saving
+  -- snacks scroll and the rest of its animations
+  if saving then vim.g.snacks_animate = false end
+end

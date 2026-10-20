@@ -2,6 +2,7 @@
 return {
   {
     "sphamba/smear-cursor.nvim",
+    cond = not vim.g.power_saving,
     event = "VeryLazy",
     opts = {
       -- wezterm draws these itself (custom_block_glyphs), so the smear is less

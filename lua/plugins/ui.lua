@@ -52,11 +52,15 @@ return {
       colorscheme = require("config.theme"),
     },
   },
+  -- no scope line animation on power saving, see options.lua
   {
-    "karb94/neoscroll.nvim",
-    opts = {
-      easing_function = "quadratic",
-    },
+    "nvim-mini/mini.indentscope",
+    optional = true,
+    opts = function(_, opts)
+      if vim.g.power_saving then
+        opts.draw = vim.tbl_extend("force", opts.draw or {}, { animation = require("mini.indentscope").gen_animation.none() })
+      end
+    end,
   },
 
   -- Structure docks to the right edge instead of floating, so Alt+7 opens a
@@ -110,5 +114,22 @@ return {
       },
       window = { width = 32 },
     },
+  },
+  -- basedpyright sends progress on every keystroke, noice was popping it up
+  -- the whole time
+  {
+    "folke/noice.nvim",
+    optional = true,
+    opts = function(_, opts)
+      opts.routes = opts.routes or {}
+      table.insert(opts.routes, {
+        filter = {
+          event = "lsp",
+          kind = "progress",
+          cond = function(msg) return vim.tbl_get(msg.opts, "progress", "client") == "basedpyright" end,
+        },
+        opts = { skip = true },
+      })
+    end,
   },
 }
